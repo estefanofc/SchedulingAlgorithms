@@ -16,7 +16,7 @@ struct node *g_head = NULL;
 
 bool comesBefore(Task *a, Task *b) {
   if(a->burst != b->burst)
-    return a->burst < b->burst;
+    return a->burst > b->burst;
   return strcmp(a->name, b->name) < 0;
 }
 
