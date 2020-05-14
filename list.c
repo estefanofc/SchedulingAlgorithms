@@ -20,12 +20,12 @@ void insert(struct node **head, Task *newTask) {
     *head = newNode;
   } else {
     struct node *curr = *head;
-    while (curr->next != NULL && strcmp(curr->task->name, curr
-        ->next->task->name) <= 0) {
+    while (curr->next != NULL && strcmp(curr->task->name, newNode
+        ->task->name) <= 0) {
       curr = curr->next;
     }
-    newNode->next = *head;
-    *head = newNode;
+    newNode->next = curr->next;
+    curr->next = newNode;
   }
 }
 
