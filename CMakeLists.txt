@@ -14,9 +14,9 @@ add_executable(P3
         list.h
         Makefile
         pri-schedule.txt
-        README
+        README.md
         rr-schedule.txt
         schedule.txt
         schedule_fcfs.c
         schedulers.h
-        task.h)
+        task.h schedule_sjf.c)
