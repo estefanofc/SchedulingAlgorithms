@@ -14,8 +14,7 @@ void insert(struct node **head, Task *newTask) {
   // add the new task to the list
   struct node *newNode = malloc(sizeof(struct node));
   newNode->task = newTask;
-  if (*head == NULL || strcmp((*head)->task->name, (*head)->next->task->name)
-      < 0) {
+  if (*head == NULL || strcmp(newNode->task->name, (*head)->task->name) <= 0) {
     newNode->next = *head;
     *head = newNode;
   } else {
