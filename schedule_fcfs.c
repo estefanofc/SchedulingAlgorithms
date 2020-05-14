@@ -21,6 +21,24 @@ void add(char *name, int priority, int burst) {
   insert(&g_head, newTask);
 }
 
+Task *pickNextTask() {
+  if (!g_head)
+    return NULL;
+  Task *t = g_head->task;
+  delete(&g_head, t);
+  return t;
+}
+
 void schedule() {
-  traverse(g_head);
+  int current_time = 0;
+  Task *task = pickNextTask();
+  while (task) {
+    run(task, task->burst);
+    current_time += task->burst;
+    printf("\tTime is now: %d\n", current_time);
+    free(task->name);
+    free(task);
+    task = pickNextTask();
+
+  }
 }
