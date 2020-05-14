@@ -24,9 +24,9 @@ void insert(struct node **head, Task *newTask) {
         ->next->task->name) <= 0) {
       curr = curr->next;
     }
+    newNode->next = *head;
+    *head = newNode;
   }
-  newNode->next = *head;
-  *head = newNode;
 }
 
 // add a new task to the list of tasks
