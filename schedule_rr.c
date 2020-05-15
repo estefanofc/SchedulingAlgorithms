@@ -21,16 +21,9 @@ Task *pickNextTask() {
   // if list is empty, nothing to do
   if (!g_head)
     return NULL;
-
   struct node *temp;
   temp = g_head;
   Task *best_sofar = temp->task;
-
-  while (temp != NULL) {
-    if (comesBefore(temp->task->name, best_sofar->name))
-      best_sofar = temp->task;
-    temp = temp->next;
-  }
   // delete the node from list, Task will get deleted later
   delete(&g_head, best_sofar);
   return best_sofar;
@@ -50,13 +43,21 @@ void schedule() {
   int slice;
   Task *task = pickNextTask();
   while (task) {
-    if(QUANTUM < task)
-    run(task, task->burst);
-    current_time += task->burst;
+    if (task->burst <= QUANTUM) {
+      slice = task->burst;
+    } else {
+      slice = QUANTUM;
+      Task *remainder = malloc(sizeof(Task));
+      remainder->priority = task->priority;
+      remainder->burst = task->burst - QUANTUM;
+      remainder->name = strdup(task->name);
+      insertEnd(&g_head, remainder);
+    }
+    run(task, slice);
+    current_time += slice;
     printf("\tTime is now: %d\n", current_time);
     free(task->name);
     free(task);
     task = pickNextTask();
-
   }
 }
