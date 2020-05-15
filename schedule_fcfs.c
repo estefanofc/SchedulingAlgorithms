@@ -21,16 +21,15 @@ Task *pickNextTask() {
   // if list is empty, nothing to do
   if (!g_head)
     return NULL;
-
   struct node *temp;
   temp = g_head;
   Task *best_sofar = temp->task;
-
-  while (temp != NULL) {
-    if (comesBefore(temp->task->name, best_sofar->name))
-      best_sofar = temp->task;
-    temp = temp->next;
-  }
+//
+//  while (temp != NULL) {
+//    if (comesBefore(temp->task->name, best_sofar->name))
+//      best_sofar = temp->task;
+//    temp = temp->next;
+//  }
   // delete the node from list, Task will get deleted later
   delete(&g_head, best_sofar);
   return best_sofar;
