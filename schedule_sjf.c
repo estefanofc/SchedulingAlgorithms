@@ -2,7 +2,6 @@
 // Created by Estefano Felipa on 5/14/20.
 //
 
-#include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,8 +13,9 @@
 
 struct node *g_head = NULL;
 
+//keeps alphanumeric order
 bool comesBefore(Task *a, Task *b) {
-  if(a->burst != b->burst)
+  if (a->burst != b->burst)
     return a->burst < b->burst;
   return strcmp(a->name, b->name) < 0;
 }
@@ -41,6 +41,7 @@ Task *pickNextTask() {
   return best_sofar;
 }
 
+//adds task to list in sorted order
 void add(char *name, int priority, int burst) {
   Task *newTask = malloc(sizeof(Task));
   newTask->priority = priority;
@@ -50,6 +51,8 @@ void add(char *name, int priority, int burst) {
   insert(&g_head, newTask);
 }
 
+//Shortest-job-first (SJF), which schedules tasks in order of the length of
+// the tasks' next CPU burst.
 void schedule() {
   int current_time = 0;
   Task *task = pickNextTask();
@@ -60,6 +63,5 @@ void schedule() {
     free(task->name);
     free(task);
     task = pickNextTask();
-
   }
 }

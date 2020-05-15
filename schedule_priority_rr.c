@@ -1,11 +1,6 @@
 //
 // Created by Estefano Felipa on 5/14/20.
 //
-
-//
-// Created by Estefano Felipa on 5/13/20.
-//
-#include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,6 +12,7 @@
 
 struct node *g_head = NULL;
 
+//keeps alphanumeric order
 bool comesBefore(Task *a, Task *b) {
   if (a->priority != b->priority)
     return a->priority > b->priority;
@@ -44,6 +40,7 @@ Task *pickNextTask() {
   return best_sofar;
 }
 
+//adds task to list in sorted order
 void add(char *name, int priority, int burst) {
   Task *newTask = malloc(sizeof(Task));
   newTask->priority = priority;
@@ -53,6 +50,8 @@ void add(char *name, int priority, int burst) {
   insert(&g_head, newTask);
 }
 
+//Priority with round-robin, which schedules tasks in order of priority and
+// uses round-robin scheduling for tasks with equal priority.
 void schedule() {
   int current_time = 0;
   int slice;

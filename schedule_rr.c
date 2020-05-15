@@ -1,8 +1,6 @@
 //
 // Created by Estefano Felipa on 5/13/20.
 //
-#include <assert.h>
-#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,8 +10,6 @@
 #include "cpu.h"
 
 struct node *g_head = NULL;
-
-bool comesBefore(char *a, char *b) { return strcmp(a, b) < 0; }
 
 // based on traverse from list.c
 // finds the task whose name comes first in dictionary
@@ -29,6 +25,7 @@ Task *pickNextTask() {
   return best_sofar;
 }
 
+//adds task to list in sorted order
 void add(char *name, int priority, int burst) {
   Task *newTask = malloc(sizeof(Task));
   newTask->priority = priority;
@@ -38,6 +35,8 @@ void add(char *name, int priority, int burst) {
   insert(&g_head, newTask);
 }
 
+//Round-robin (RR) scheduling, where each task is run for a time quantum (or
+// for the remainder of its CPU burst).
 void schedule() {
   int current_time = 0;
   int slice;

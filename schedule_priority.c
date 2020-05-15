@@ -18,6 +18,7 @@
 
 struct node *g_head = NULL;
 
+//keeps alphanumeric order
 bool comesBefore(Task *a, Task *b) {
   if (a->priority != b->priority)
     return a->priority > b->priority;
@@ -45,6 +46,7 @@ Task *pickNextTask() {
   return best_sofar;
 }
 
+//adds task to list in sorted order
 void add(char *name, int priority, int burst) {
   Task *newTask = malloc(sizeof(Task));
   newTask->priority = priority;
@@ -54,6 +56,7 @@ void add(char *name, int priority, int burst) {
   insert(&g_head, newTask);
 }
 
+//Priority scheduling, which schedules tasks based on priority.
 void schedule() {
   int current_time = 0;
   Task *task = pickNextTask();
