@@ -19,4 +19,4 @@ add_executable(P3
         schedule.txt
         schedule_fcfs.c
         schedulers.h
-        task.h schedule_sjf.c schedule_priority.c schedule_rr.c)
+        task.h schedule_sjf.c schedule_priority.c schedule_rr.c schedule_priority_rr.c)
