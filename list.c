@@ -32,10 +32,16 @@ void insert(struct node **head, Task *newTask) {
 void insertEnd(struct node **head, Task *newTask) {
   // add the new task to the list
   struct node *newNode = malloc(sizeof(struct node));
-
   newNode->task = newTask;
-  newNode->next = *head;
-  *head = newNode;
+  if (*head == NULL) {
+    *head = newNode;
+  } else {
+    struct node *curr = *head;
+    while (curr->next != NULL) {
+      curr = curr->next;
+    }
+    curr->next = newNode;
+  }
 }
 
 // delete the selected task from the list
